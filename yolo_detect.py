@@ -45,7 +45,7 @@ class YoloDetector(LPDetector):
         self._model.warmup(imgsz=(1, 3, *self._imgsz))
         return self
 
-    def get_car_plates_boxes(self,  orig_images, images_to_detect: List[np.ndarray]) -> Any:
+    def get_car_plates_boxes(self, orig_images, images_to_detect: List[np.ndarray]) -> Any:
         detection, images = self.predict(images_to_detect)
         result = []
         for i, det in enumerate(detection):
@@ -58,13 +58,11 @@ class YoloDetector(LPDetector):
                     xyxy = [int(x) for x in xyxy]
                     det_objects.append(DetectionObject(bbox=xyxy, id_=cls))
 
-
             result.append(det_objects)
 
         return result
 
     def predict(self, images: List[np.ndarray]) -> Tuple[Any, np.ndarray]:
-        # images = [letterbox(orig_image, self._imgsz, stride=self._stride, auto=self._auto)[0]]
         images = np.stack(images, 0)
         images = images[..., ::-1].transpose((0, 3, 1, 2))
         images = np.ascontiguousarray(images)

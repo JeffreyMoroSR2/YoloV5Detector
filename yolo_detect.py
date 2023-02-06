@@ -56,7 +56,7 @@ class YoloDetector(LPDetector):
                 for *xyxy, conf, cls in reversed(det):
                     xyxy = (torch.tensor(xyxy).view(1, 4)).view(-1).tolist()
                     xyxy = [int(x) for x in xyxy]
-                    det_objects.append(DetectionObject(bbox=xyxy, id_=cls))
+                    det_objects.append(DetectionObject(bbox=xyxy, id_=int(cls)))
 
             result.append(det_objects)
 

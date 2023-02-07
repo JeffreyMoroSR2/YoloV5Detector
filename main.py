@@ -21,8 +21,8 @@ def draw_boxes(frame_to_draw, detections):
 
 
 if __name__ == '__main__':
-    streams = ['../plate.jpg',
-               '../plates.jpg']
+    streams = ['rtsp://admin:admin@192.168.1.2:554',
+               'rtsp://admin:admin@192.168.1.2:554']
     sources = []
     for i, stream in enumerate(streams):
         sources.append(Source(stream=stream, stream_id=i))

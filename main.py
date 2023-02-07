@@ -11,10 +11,12 @@ def draw_boxes(frame_to_draw, detections):
     if len(detections) == 0:
         return frame_to_draw
 
+    detections = detections[0]
+
     for detection in detections:
         frame_to_draw = cv2.rectangle(frame_to_draw, (detection.bbox[0], detection.bbox[1]),
                                       (detection.bbox[2], detection.bbox[3]), (0, 0, 255), 2)
-        frame_to_draw = cv2.putText(frame_to_draw, f'{detection.id_}', (detection.bbox[0], detection.bbox[1] - 10),
+        frame_to_draw = cv2.putText(frame_to_draw, f'{detection.uniq_id}', (detection.bbox[0], detection.bbox[1] - 10),
                                     cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
 
     return frame_to_draw

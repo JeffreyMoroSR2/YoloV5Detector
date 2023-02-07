@@ -2,9 +2,11 @@ from typing import List, Tuple, Any
 from abc import ABCMeta, abstractmethod
 from yolo_detector_abc import LPDetector
 from detection_obj import DetectionObject
+from Centroid.centroidtracker import CentroidTracker
 import torch
 import logging
 import numpy as np
+from typing import List, Any
 
 from yolov5.utils.augmentations import letterbox  # find it in yolov5 directory
 from yolov5.utils.torch_utils import select_device  # find it in yolov5 directory
@@ -56,10 +58,10 @@ class YoloDetector(LPDetector):
                 for *xyxy, conf, cls in reversed(det):
                     xyxy = (torch.tensor(xyxy).view(1, 4)).view(-1).tolist()
                     xyxy = [int(x) for x in xyxy]
-                    det_objects.append(DetectionObject(bbox=xyxy, id_=int(cls)))
+                    det_objects.append(CentroidTracker().update([DetectionObject(bbox=xyxy, id_=int(cls))]))
+                    # det_objects.append(DetectionObject(bbox=xyxy, id_=int(cls)))
 
             result.append(det_objects)
-
         return result
 
     def predict(self, images: List[np.ndarray]) -> Tuple[Any, np.ndarray]:

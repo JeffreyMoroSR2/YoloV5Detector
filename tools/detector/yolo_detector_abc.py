@@ -6,7 +6,7 @@ import numpy as np
 class LPDetector(metaclass=ABCMeta):
 
     @abstractmethod
-    def load_model(self):
+    def start(self):
         """
         method that set self._model
         :return: self
@@ -29,5 +29,16 @@ class LPDetector(metaclass=ABCMeta):
         method that predict objects on image
         :param orig_image: np.ndarray
         :return: bboxes
+        """
+        raise NotImplementedError("Method not implemented")
+
+    @staticmethod
+    @abstractmethod
+    def draw_boxes(frame_to_draw, detections):
+        """
+        method to draw boxes on a frame
+        :param frame_to_draw: np.ndarray
+        :param detections: list
+        :return: np.ndarray
         """
         raise NotImplementedError("Method not implemented")

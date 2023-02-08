@@ -1,11 +1,14 @@
 import json
+from abc import ABCMeta
+
 import torch
 import numpy as np
+import cv2
 
 from typing import List, Tuple, Any
 
-from tools.detector.yolo_detector_abc import LPDetector
-from tools.detector.detection_obj import DetectionObject
+from .yolo_detector_abc import LPDetector
+from .detection_obj import DetectionObject
 
 from libs.yolov5.utils.torch_utils import select_device
 from libs.yolov5.models.common import DetectMultiBackend
@@ -14,7 +17,7 @@ from libs.yolov5.utils.general import non_max_suppression, scale_boxes, check_im
 config = json.loads(open('external/config.json', 'r').read())
 
 
-class YoloDetector(LPDetector):
+class YoloDetector(LPDetector, metaclass=ABCMeta):
     def __init__(self,
                  model_path=config['YoloV5Detector']['yolo_detect']['model_path'],
                  data=config['YoloV5Detector']['yolo_detect']['data'],
@@ -54,7 +57,7 @@ class YoloDetector(LPDetector):
         self._max_det = max_det
         self._nm = nm
 
-    def load_model(self):
+    def start(self):
         self._model = DetectMultiBackend(self._weights, device=self._device, data=self._data)
         self._model.warmup(imgsz=(1, 3, *self._imgsz))
         return self
@@ -91,3 +94,17 @@ class YoloDetector(LPDetector):
                                    self._max_det)
 
         return pred, images
+
+    @staticmethod
+    def draw_boxes(frame_to_draw, detections):
+        if len(detections) == 0:
+            return frame_to_draw
+
+        for detection in detections:
+            frame_to_draw = cv2.rectangle(frame_to_draw, (detection.bbox[0], detection.bbox[1]),
+                                          (detection.bbox[2], detection.bbox[3]), (0, 0, 255), 2)
+            frame_to_draw = cv2.putText(frame_to_draw, f'{detection.uniq_id}',
+                                        (detection.bbox[0], detection.bbox[1] - 10),
+                                        cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2, cv2.LINE_AA)
+
+        return frame_to_draw

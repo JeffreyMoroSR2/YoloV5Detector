@@ -5,7 +5,7 @@ import numpy as np
 
 from objects.source import Source
 from typing import List
-from modules.loader.stream_loader_abc import SL
+from .stream_loader_abc import SL
 
 from libs.yolov5.utils.augmentations import letterbox
 from libs.yolov5.utils.general import check_img_size

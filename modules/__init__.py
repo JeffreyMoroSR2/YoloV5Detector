@@ -1,1 +1,1 @@
-
+from modules.analyzer.stream_analyzer import StreamAnalyzer

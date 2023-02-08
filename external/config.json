@@ -1,0 +1,27 @@
+{
+  "YoloV5Detector":
+  {
+    "streams": ["rtsp://admin:admin@192.168.1.2:554", "rtsp://admin:admin@192.168.1.2:554"],
+    "yolo_detect": {
+      "model_path": "external/carplates_det.pt",
+      "data": "yolov5/data/coco128.yaml",
+      "device": "cuda:0",
+      "img_size": "(320, 320)",
+      "stride": 32,
+      "auto": false,
+      "augment" : false,
+      "visualize": false,
+      "conf_thres": 0.25,
+      "iou_thres": 0.45,
+      "classes": null,
+      "agnostic": false,
+      "multi_label": false,
+      "labels": null,
+      "max_det": 300,
+      "nm": 0
+    },
+    "centroidtracker": {
+      "maxDisappeared": 50
+    }
+  }
+}

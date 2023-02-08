@@ -1,15 +1,6 @@
 from typing import List, Tuple, Any
 from abc import ABCMeta, abstractmethod
-
-import torch
-import logging
 import numpy as np
-
-from libs.yolov5.utils.augmentations import letterbox  # find it in yolov5 directory
-from libs.yolov5.utils.torch_utils import select_device  # find it in yolov5 directory
-from libs.yolov5.models.common import DetectMultiBackend  # find it in yolov5 directory
-from libs.yolov5.utils.general import non_max_suppression, scale_boxes, xyxy2xywh, check_img_size  # find it in yolov5
-# directory
 
 
 class LPDetector(metaclass=ABCMeta):

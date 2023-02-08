@@ -1,9 +1,9 @@
 import cv2
 
-from loader.stream_loader import StreamLoader
-from modules.yolo_detect import YoloDetector
-from centroid import CentroidTracker
-from source import Source
+from modules.loader.stream_loader import StreamLoader
+from tools import YoloDetector
+from libs.centroid import CentroidTracker
+from objects.source import Source
 
 
 def draw_boxes(frame_to_draw, detections):
@@ -29,7 +29,7 @@ if __name__ == '__main__':
     stream_loader = StreamLoader(sources).start()
     trackers = [CentroidTracker() for _ in range(len(stream_loader))]
 
-    yolo_detector = YoloDetector('external/carplates_det.pt', max_det=1000).load_model()
+    yolo_detector = YoloDetector('external/weights/detector/carplates_det.pt', max_det=1000).load_model()
 
     while True:
         ids, images, imgs_det = stream_loader.streams

@@ -1,7 +1,7 @@
 from scipy.spatial import distance as dist
 from collections import OrderedDict
-from detection_obj import DetectionObject
-from typing import List, Any
+from tools.detector.detection_obj import DetectionObject
+from typing import List
 from uuid import uuid4
 import numpy as np
 import json

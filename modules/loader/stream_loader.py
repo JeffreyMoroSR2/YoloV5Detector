@@ -1,15 +1,17 @@
 import cv2
 import time
-from source import Source
-from typing import List
 import threading
 import numpy as np
+
+from objects.source import Source
+from typing import List
+from modules.loader.stream_loader_abc import SL
 
 from libs.yolov5.utils.augmentations import letterbox
 from libs.yolov5.utils.general import check_img_size
 
 
-class StreamLoader:
+class StreamLoader(SL):
     def __init__(self, sources: List[Source]):
         self._sources = sources
 

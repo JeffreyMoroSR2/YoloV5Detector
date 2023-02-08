@@ -4,8 +4,8 @@ import numpy as np
 
 from typing import List, Tuple, Any
 
-from modules.yolo_detector_abc import LPDetector
-from detection_obj import DetectionObject
+from tools.detector.yolo_detector_abc import LPDetector
+from tools.detector.detection_obj import DetectionObject
 
 from libs.yolov5.utils.torch_utils import select_device
 from libs.yolov5.models.common import DetectMultiBackend

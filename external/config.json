@@ -6,7 +6,7 @@
       "model_path": "external/carplates_det.pt",
       "data": "yolov5/data/coco128.yaml",
       "device": "cuda:0",
-      "img_size": "(320, 320)",
+      "img_size": [320, 320],
       "stride": 32,
       "auto": false,
       "augment" : false,
